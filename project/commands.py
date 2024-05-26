@@ -35,7 +35,20 @@ def shell():
 @click.command()
 def initdb():
     """Initializes the database provided in `settings.DATABASE_URI`."""
-    from .database import create_db
+    from .database import setup_database
 
-    create_db()
+    setup_database()
     click.echo(f"Database initialized (URI: {settings.DATABASE_URI})")
+
+
+@click.command()
+def test():
+    """Runs unit tests with Flask application context."""
+    import unittest
+    from flask import current_app
+
+    with current_app.app_context():
+        loader = unittest.TestLoader()
+        tests = loader.discover("", top_level_dir=settings.ROOT_PATH)
+        testRunner = unittest.TextTestRunner(verbosity=2)
+        testRunner.run(tests)

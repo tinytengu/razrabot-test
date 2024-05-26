@@ -1,3 +1,4 @@
+import os
 from functools import wraps
 
 from sqlalchemy import create_engine
@@ -18,13 +19,29 @@ class Base(DeclarativeBase):
         return f"<{self.__class__.__name__} {self.id}>"
 
 
-engine = create_engine(settings.DATABASE_URI)
+_DATABASE_URI = (
+    settings.TESTS_DATABASE_URI
+    if os.getenv("TESTING", False)
+    else settings.DATABASE_URI
+)
+
+engine = create_engine(_DATABASE_URI)
 Session: SessionType = scoped_session(sessionmaker(autoflush=False, bind=engine))
 
 
-def create_db():
+def setup_database():
     """Create the database schema."""
     Base.metadata.create_all(bind=engine)
+
+
+def teardown_database():
+    if "sqlite" in _DATABASE_URI:
+        filepath = _DATABASE_URI.replace("sqlite:///", "")
+        if os.path.isfile(filepath):
+            os.remove(filepath)
+        return
+
+    Base.metadata.drop_all(engine)
 
 
 def provide_session(func):

@@ -14,6 +14,10 @@ def main(args: list):
 
     environ["SETTINGS_MODULE"] = getenv("SETTINGS_MODULE", "project.settings")
 
+    # TODO: This is a hacky way of doing this, but it works for now.
+    if args[0] == "test":
+        environ["TESTING"] = "1"
+
     p = Popen(
         [
             get_python_executable(),
@@ -26,6 +30,12 @@ def main(args: list):
     )
 
     p.wait()
+
+    # TODO: This is a hacky way of doing this, but it works for now.
+    if getenv("TESTING") == "1":
+        from project.database import teardown_database
+
+        teardown_database()
 
 
 if __name__ == "__main__":

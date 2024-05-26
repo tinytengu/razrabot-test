@@ -18,6 +18,9 @@ DEBUG = True
 # Production database URI.
 DATABASE_URI = getenv("DATABASE_URI", "sqlite:///./database.db")
 
+# Production database URI.
+TESTS_DATABASE_URI = getenv("DATABASE_URI", "sqlite:///./tests.db")
+
 # Add your applications here.
 APPS = [
     "tasks",

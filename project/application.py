@@ -4,7 +4,7 @@ from flask import Flask
 from flask_cors import CORS
 
 from .utils.settings import settings
-from .commands import runserver, shell, initdb
+from .commands import runserver, shell, initdb, test
 
 
 def create_app():
@@ -39,5 +39,6 @@ def create_app():
     app.cli.add_command(runserver)
     app.cli.add_command(shell)
     app.cli.add_command(initdb)
+    app.cli.add_command(test)
 
     return app
