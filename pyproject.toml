@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "razrabot-test"
+version = "0.1.0"
+description = ""
+authors = ["tinytengu <tinytengu@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.0.3"
+pydantic = "^2.7.1"
+flask-cors = "^4.0.1"
+sqlalchemy = "^2.0.30"
+asyncpg = "^0.29.0"
+python-dotenv = "^1.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.10.0"
+ruff = "^0.4.5"
+pycodestyle = "^2.11.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
