@@ -23,4 +23,6 @@ DATABASE_URI = getenv("DATABASE_URI", "sqlite:///./database.db")
 TEST_DATABASE_URI = getenv("TEST_DATABASE_URI", "sqlite:///./tests.db")
 
 # Add your applications here.
-APPS = []
+APPS = [
+    "tasks",
+]
