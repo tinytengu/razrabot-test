@@ -1,9 +1,9 @@
+from importlib import import_module
+
 from flask import Flask
 from flask_cors import CORS
 
-
-from .utils.modules import import_module_from_path
-from .settings import ROOT_PATH, DATABASE_URI, APPS
+from .utils.settings import settings
 from .commands import runserver, shell, initdb
 
 
@@ -16,7 +16,6 @@ def create_app():
     # App
     app = Flask(__name__)
     app.json.sort_keys = False
-    app.config["DATABASE_URI"] = DATABASE_URI
 
     # CORS
     CORS(app)
@@ -25,11 +24,11 @@ def create_app():
     app.add_url_rule("/", view_func=lambda: {"ping": "pong"}, methods=["GET"])
 
     # Module views
-    for app_name in APPS:
-        router_module = import_module_from_path(
-            f"{app_name}.router",
-            ROOT_PATH / app_name / "router.py",
-        )
+    for app_name in settings.APPS:
+        router_module = import_module(f"{app_name}.router")
+
+        # This is needed so sqlalchemy detects schema right away
+        import_module(f"{app_name}.models")
 
         app.register_blueprint(
             router_module.router,

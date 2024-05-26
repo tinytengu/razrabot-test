@@ -8,10 +8,7 @@ from sqlalchemy.orm import (
     Session as SessionType,
 )
 
-from .settings import DATABASE_URI
-
-engine = create_engine(DATABASE_URI)
-Session: SessionType = scoped_session(sessionmaker(autoflush=False, bind=engine))
+from project.utils.settings import settings
 
 
 class Base(DeclarativeBase):
@@ -19,6 +16,10 @@ class Base(DeclarativeBase):
 
     def __repr__(self):
         return f"<{self.__class__.__name__} {self.id}>"
+
+
+engine = create_engine(settings.DATABASE_URI)
+Session: SessionType = scoped_session(sessionmaker(autoflush=False, bind=engine))
 
 
 def create_db():

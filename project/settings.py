@@ -2,7 +2,6 @@
 
 from os import getenv
 from pathlib import Path
-
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -17,10 +16,7 @@ PROJECT_PATH = Path(__file__).resolve().parent
 DEBUG = True
 
 # Production database URI.
-DATABASE_URI = getenv("DATABASE_URI", "sqlite:///./database.db")
-
-# Database URI used for testing.
-TEST_DATABASE_URI = getenv("TEST_DATABASE_URI", "sqlite:///./tests.db")
+DATABASE_URI = getenv("DATABASE_URI", "sqlite:///./database2.db")
 
 # Add your applications here.
 APPS = [

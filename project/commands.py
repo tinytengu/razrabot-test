@@ -4,7 +4,7 @@ import click
 from subprocess import Popen
 
 from .utils.system import get_python_executable
-from .settings import PROJECT_PATH, DATABASE_URI, DEBUG
+from .utils.settings import settings
 
 
 @click.command()
@@ -15,12 +15,12 @@ def runserver():
         "-m",
         "flask",
         "--app",
-        f"{PROJECT_PATH.name}.application:create_app",
+        f"{settings.PROJECT_PATH.name}.application:create_app",
         "run",
         "--reload",
     ]
 
-    if DEBUG is True:
+    if settings.DEBUG is True:
         args.append("--debug")
 
     Popen(args).wait()
@@ -38,4 +38,4 @@ def initdb():
     from .database import create_db
 
     create_db()
-    click.echo(f"Database initialized (URI: {DATABASE_URI})")
+    click.echo(f"Database initialized (URI: {settings.DATABASE_URI})")
