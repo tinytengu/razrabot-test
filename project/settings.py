@@ -16,7 +16,7 @@ PROJECT_PATH = Path(__file__).resolve().parent
 DEBUG = True
 
 # Production database URI.
-DATABASE_URI = getenv("DATABASE_URI", "sqlite:///./database2.db")
+DATABASE_URI = getenv("DATABASE_URI", "sqlite:///./database.db")
 
 # Add your applications here.
 APPS = [
