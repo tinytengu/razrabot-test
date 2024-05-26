@@ -78,5 +78,13 @@ class LazySettings(LazyObject):
 
         return getattr(self._wrapped, name)
 
+    def __setattr__(self, name, value):
+        if name == "_wrapped":
+            super().__setattr__(name, value)
+        else:
+            if self._wrapped is empty:
+                self._setup(name)
+            setattr(self._wrapped, name, value)
+
 
 settings = LazySettings()
