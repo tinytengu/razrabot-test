@@ -1,3 +1,5 @@
+"""ORM models."""
+
 from uuid import uuid4
 from datetime import datetime, timezone
 
@@ -7,6 +9,7 @@ from project.database import Base
 
 
 def get_uuid_str() -> str:
+    """Return randomly generated UUID string."""
     return str(uuid4())
 
 

@@ -1,8 +1,9 @@
+"""Module-level router and its view functions."""
+
 from flask import Blueprint
 
-
 from project.database import Session
-from project.utils.validation import api_view
+from project.utils.routing import api_view
 
 from .serializers import (
     TaskSerializer,
@@ -12,6 +13,7 @@ from .serializers import (
 )
 from . import crud
 
+# Router used in the project for dynamic module/app integration.
 router = Blueprint("tasks", __name__)
 
 
